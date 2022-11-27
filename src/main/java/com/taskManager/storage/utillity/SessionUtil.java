@@ -1,6 +1,5 @@
 package com.taskManager.storage.utillity;
 
-import com.taskManager.storage.utillity.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

@@ -2,7 +2,6 @@ package com.taskManager.storage.service;
 
 import com.taskManager.storage.DAO.TaskDAO;
 import com.taskManager.storage.entity.Task;
-import com.taskManager.storage.utillity.HibernateUtil;
 import com.taskManager.storage.utillity.SessionUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -61,10 +60,6 @@ public class TaskService extends SessionUtil implements TaskDAO {
 
         Session session = getSession();
         session.remove(task);
-        /*session.flush();
-        session.close();*/
-        //session.close();
-        //close session with a transaction
 
         closeTransactionSession();
 

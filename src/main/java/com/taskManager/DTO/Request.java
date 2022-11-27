@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Request {
-    private Method method; //1.GET DATA FROM DB 2.POST DATA TO DB 3.PUT AND DELETE
+    private Method method;
     private int id;
     private String name;
     private int time;
