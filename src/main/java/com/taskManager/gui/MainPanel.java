@@ -11,6 +11,7 @@ public class MainPanel extends JPanel {
     TaskController tc = new TaskController();
 
     public MainPanel(){
+        this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
         load();
     }
 
