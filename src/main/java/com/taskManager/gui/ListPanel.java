@@ -70,7 +70,7 @@ public class ListPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //TODO make to show time pretty
+
         if(e.getSource()==timer&&timer.getText().equals("Start")){
             t=new Timer(1000, e1 -> {
                 k++;
