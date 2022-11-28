@@ -32,7 +32,7 @@ public class BottomPanel extends JPanel implements ActionListener {
         if(e.getSource()==send){
 
             taskController.post(tf.getText());
-            centralPanel.load();
+            centralPanel.loadList();
             tf.setText("");
         }
     }

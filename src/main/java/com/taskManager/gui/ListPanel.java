@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 
 public class ListPanel extends JPanel implements ActionListener {
@@ -23,9 +25,10 @@ public class ListPanel extends JPanel implements ActionListener {
     Timer t;
     int k = 0;
     SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
+    MainPanel main;
 
-    public ListPanel(Task task){
-
+    public ListPanel(Task task,MainPanel main){
+        this.main  = main;
         this.setPreferredSize(new Dimension(690,30));
 
         id = new JLabel();
@@ -36,6 +39,16 @@ public class ListPanel extends JPanel implements ActionListener {
         name = new JLabel();
         name.setText(task.getName());
         name.setPreferredSize(new Dimension(280,30));
+        name.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("pressed"+name.getText());
+                //super.mouseClicked(e);
+                JButton l = new JButton();
+                l.setText("test");
+                main.loadTask(task);
+            }
+        });
         this.add(name);
 
         startDate = new JLabel();
