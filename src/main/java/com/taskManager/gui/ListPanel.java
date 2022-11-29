@@ -26,9 +26,11 @@ public class ListPanel extends JPanel implements ActionListener {
     int k = 0;
     SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
     MainPanel main;
+    TopPanel topPanel;
 
-    public ListPanel(Task task,MainPanel main){
+    public ListPanel(Task task,MainPanel main, TopPanel topPanel,BottomPanel bottomPanel){
         this.main  = main;
+        this.topPanel = topPanel;
         this.setPreferredSize(new Dimension(690,30));
 
         id = new JLabel();
@@ -43,10 +45,9 @@ public class ListPanel extends JPanel implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("pressed"+name.getText());
-                //super.mouseClicked(e);
-                JButton l = new JButton();
-                l.setText("test");
+                topPanel.loadEdit(task);
                 main.loadTask(task);
+                bottomPanel.loadEdit(task);
             }
         });
         this.add(name);

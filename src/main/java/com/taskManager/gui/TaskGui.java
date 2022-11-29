@@ -10,18 +10,22 @@ public class TaskGui {
 
         TopPanel topPanel = new TopPanel();
         topPanel.setBackground(Color.GRAY);
-        container.add(topPanel,BorderLayout.NORTH);
+        container.add(topPanel.load(),BorderLayout.NORTH);
 
-        MainPanel centralPanel = new MainPanel();
+        BottomPanel bottomPanel = new BottomPanel(topPanel);
+        bottomPanel.setBackground(Color.GRAY);
+
+        MainPanel centralPanel = new MainPanel(topPanel,bottomPanel);
         JScrollPane scroll = new JScrollPane(centralPanel);
         scroll.setPreferredSize(new Dimension(700,330));
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         container.add(scroll,BorderLayout.CENTER);
 
-        BottomPanel bottomPanel = new BottomPanel(centralPanel);
-        bottomPanel.setBackground(Color.GRAY);
-        container.add(bottomPanel,BorderLayout.SOUTH);
+/*        BottomPanel bottomPanel = new BottomPanel();
+        bottomPanel.setBackground(Color.GRAY);*/
+        container.add(bottomPanel.load(centralPanel),BorderLayout.SOUTH);
+        container.add(scroll,BorderLayout.CENTER);
 
 
     }

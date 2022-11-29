@@ -46,8 +46,6 @@ public class DataService {
 
             return new Response(Status.BAD, e, null);
 
-        } finally {
-            taskService.closeTransactionSession();
         }
 
     }
