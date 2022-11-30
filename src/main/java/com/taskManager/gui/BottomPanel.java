@@ -11,22 +11,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class BottomPanel extends JPanel implements ActionListener {
+
     JTextField tf;
     JButton send;
     TaskController taskController =new TaskController();
     MainPanel centralPanel;
     TopPanel topPanel;
+
     public BottomPanel (TopPanel topPanel){
         this.topPanel = topPanel;
 
-/*        JLabel label = new JLabel("Enter new task");
-        tf = new JTextField(10);
-        send = new JButton("Save task");
-        send.addActionListener(this);
-
-        this.add(label);
-        this.add(tf);
-        this.add(send);*/
     }
     public BottomPanel load( MainPanel centralPanel){
         this.removeAll();
@@ -55,13 +49,14 @@ public class BottomPanel extends JPanel implements ActionListener {
             tf.setText("");
         }
     }
-    public void loadEdit(Task task){
+    public void loadTaskView(Task task){
         this.removeAll();
         this.revalidate();
         this.repaint();
-        //TODO add buttons: delete, back to list, edit task
+
         JButton delete = new JButton("Delete task");
         delete.addActionListener(e -> {
+            //TODO add confirmation before deleting
             Response r = taskController.delete(task.getId());
             //TODO if delete returns ok then return list panel
             if(r.getStatus().equals(Status.OK)) {
@@ -72,7 +67,10 @@ public class BottomPanel extends JPanel implements ActionListener {
             });
 
         JButton edit = new JButton("Edit task");
-        edit.addActionListener(e -> System.out.println("edit panel"));
+        edit.addActionListener(e -> {
+           centralPanel.loadEditPage(task);
+           this.loadEditView(task);
+        });
 
         JButton back = new JButton("Return to list");
         back.addActionListener(e->{
@@ -83,5 +81,20 @@ public class BottomPanel extends JPanel implements ActionListener {
         this.add(delete);
         this.add(edit);
         this.add(back);
+    }
+
+    public void loadEditView(Task task){
+        this.removeAll();
+        this.revalidate();
+        this.repaint();
+        JButton back = new JButton("Return to task");
+        back.addActionListener(e->{
+            topPanel.loadEdit(task);
+            centralPanel.loadTask(task);
+            this.loadTaskView(task);
+        });
+
+        this.add(back);
+
     }
 }

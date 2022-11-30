@@ -36,4 +36,10 @@ public class MainPanel extends JPanel {
         this.add(new TaskPanel(task, this, topPanel));
     }
     //TODO resolve issue saving data on changing panels or on closing
+    public void loadEditPage(Task task){
+        this.removeAll();
+        this.revalidate();
+        this.repaint();
+        this.add(new EditPanel(task));
+    }
 }

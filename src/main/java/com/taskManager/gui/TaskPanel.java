@@ -1,15 +1,18 @@
 package com.taskManager.gui;
 
+import com.taskManager.controller.TaskController;
 import com.taskManager.storage.entity.Task;
 import test.TestingTimer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class TaskPanel extends JPanel {
     SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
+    TaskController taskController = new TaskController();
 
     public TaskPanel(Task task, MainPanel main, TopPanel topPanel){
         //TODO refactor and make panel to look nice
@@ -112,14 +115,11 @@ public class TaskPanel extends JPanel {
         gbc.gridy = 5;
         gbc.anchor = GridBagConstraints.LINE_END;
         this.add(descriptionText,gbc);
-        JButton getBack = new JButton("return");
-        getBack.addActionListener(e -> {
-            topPanel.load();
-            main.loadList();
+        JButton finish = new JButton("Finish task");
+        finish.addActionListener(e->{
+            taskController.put(task.getId(),null,"finished", task.getSTime());
+            //TODO resolve response
         });
-        gbc = new GridBagConstraints();
-        gbc.gridx =3;
-        gbc.gridy = 4;
-        this.add(getBack,gbc);
+        this.add(finish);
     }
 }

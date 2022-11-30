@@ -47,7 +47,7 @@ public class ListPanel extends JPanel implements ActionListener {
                 System.out.println("pressed"+name.getText());
                 topPanel.loadEdit(task);
                 main.loadTask(task);
-                bottomPanel.loadEdit(task);
+                bottomPanel.loadTaskView(task);
             }
         });
         this.add(name);
