@@ -14,6 +14,7 @@ public class MainPanel extends JPanel {
     TaskController taskController = new TaskController();
     TopPanel topPanel;
     BottomPanel bottomPanel;
+    int no = 1;
 
     public MainPanel(TopPanel topPanel, BottomPanel bottomPanel) {
         this.topPanel = topPanel;
@@ -31,8 +32,10 @@ public class MainPanel extends JPanel {
                 this.add(new JLabel("Add your first task"));
             }else {
                 for (Task task : tasks) {
-                    this.add(new ListPanel(task, this, topPanel, bottomPanel));
+                    this.add(new ListPanel(task, this, topPanel, bottomPanel,no));
+                    no++;
                 }
+                no=1;
             }
         }else{
             JOptionPane.showMessageDialog(null,response.getException().getMessage(),"Some error occurred",JOptionPane.ERROR_MESSAGE);

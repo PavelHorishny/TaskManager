@@ -1,6 +1,7 @@
 package com.taskManager.gui;
 
 import com.taskManager.DTO.Response;
+import com.taskManager.DTO.Status;
 import com.taskManager.controller.TaskController;
 import com.taskManager.storage.entity.Task;
 import com.taskManager.utility.TaskAppUtility;
@@ -27,9 +28,8 @@ public class ListPanel extends JPanel implements ActionListener {
     int k;
     MainPanel main;
     TopPanel topPanel;
-    //TODO show numbers but not id
 
-    public ListPanel(Task task, MainPanel main, TopPanel topPanel, BottomPanel bottomPanel) {
+    public ListPanel(Task task, MainPanel main, TopPanel topPanel, BottomPanel bottomPanel, int no) {
         this.main = main;
         this.topPanel = topPanel;
 
@@ -37,7 +37,7 @@ public class ListPanel extends JPanel implements ActionListener {
         this.setLayout(new GridBagLayout());
 
         id = new JLabel();
-        id.setText(String.valueOf(task.getId()));
+        id.setText(String.valueOf(no));
         id.setPreferredSize(new Dimension(30, 30));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -123,13 +123,17 @@ public class ListPanel extends JPanel implements ActionListener {
             endDate.setText("in progress");
         } else {
             t.stop();
-            Response r = taskController.put(Integer.parseInt(id.getText()), null, null, k);
-            //TODO check response
-            time.setText(TaskAppUtility.convertTime(k));
-            timer.setText("Start");
-            endDate.setText("not finished");
-            this.revalidate();
-            this.repaint();
+            Response response = taskController.put(Integer.parseInt(id.getText()), null, null, k);
+
+            if(response.getStatus().equals(Status.OK)){
+                time.setText(TaskAppUtility.convertTime(k));
+                timer.setText("Start");
+                endDate.setText("not finished");
+                this.revalidate();
+                this.repaint();
+            }else{
+                JOptionPane.showMessageDialog(null,response.getException().getMessage(),"Some error occurred",JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }

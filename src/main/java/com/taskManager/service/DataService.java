@@ -50,7 +50,6 @@ public class DataService {
 
     }
 
-    //TODO make warnings in case of non critical troubles
     private Response resolvePut(int id, String name, String finish, int time) {
         try {
             Task task = taskService.getByID(id);
