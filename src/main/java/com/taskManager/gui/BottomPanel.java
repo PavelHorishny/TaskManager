@@ -46,7 +46,6 @@ public class BottomPanel extends JPanel implements ActionListener {
     @SneakyThrows
     @Override
     public void actionPerformed(ActionEvent e) {
-        //TODO check the empty string
         if (e.getSource() == send) {
             if(tf.getText().equals("")){
                 JOptionPane.showMessageDialog(null,"Enter name of your task first","Warning",JOptionPane.WARNING_MESSAGE);

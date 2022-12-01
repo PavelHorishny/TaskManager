@@ -47,6 +47,6 @@ public class MainPanel extends JPanel {
     //TODO resolve issue saving data on changing panels or on closing
     public void showEditView(Task task) {
         TaskAppUtility.reloadPanel(this);
-        this.add(new EditPanel(task));
+        this.add(new EditPanel(task,this));
     }
 }
