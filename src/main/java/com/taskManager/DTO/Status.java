@@ -1,5 +1,5 @@
 package com.taskManager.DTO;
 
 public enum Status {
-    OK,BAD
+    OK, BAD
 }

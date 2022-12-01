@@ -13,5 +13,5 @@ import java.util.List;
 public class Response {
     Status status;
     Exception exception;
-    List <Task> tasks;
+    List<Task> tasks;
 }
