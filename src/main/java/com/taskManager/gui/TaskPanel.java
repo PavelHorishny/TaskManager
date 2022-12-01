@@ -1,5 +1,7 @@
 package com.taskManager.gui;
 
+import com.taskManager.DTO.Response;
+import com.taskManager.DTO.Status;
 import com.taskManager.controller.TaskController;
 import com.taskManager.storage.entity.Task;
 import com.taskManager.utility.TaskAppUtility;
@@ -136,11 +138,14 @@ public class TaskPanel extends JPanel {
         JButton finish = new JButton("Finish task");
         gbc = new GridBagConstraints();
         finish.addActionListener(e -> {
-            taskController.put(task.getId(), null, "finished", task.getSTime());
-            main.showListView();
-            topPanel.load();
-            bottomPanel.showMainView(main);
-            //TODO resolve response
+            Response response = taskController.put(task.getId(), null, "finished", task.getSTime());
+            if (response.getStatus().equals(Status.OK)) {
+                main.showListView();
+                topPanel.load();
+                bottomPanel.showMainView(main);
+            }else{
+                JOptionPane.showMessageDialog(null,response.getException().getMessage(),"Some error occurred",JOptionPane.ERROR_MESSAGE);
+            }
         });
         gbc.gridx = 1;
         gbc.gridy = 7;
