@@ -1,5 +1,6 @@
 package com.taskManager.utility;
 
+import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -18,5 +19,11 @@ public class TaskAppUtility {
         int minutes = (time - (3600*hours))/60;
         int seconds = time%60;
         return String.format("%d h %d m %d s",hours,minutes,seconds);
+    }
+
+    public static void reloadPanel(JPanel panel){
+        panel.removeAll();
+        panel.revalidate();
+        panel.repaint();
     }
 }

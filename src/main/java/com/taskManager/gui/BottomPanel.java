@@ -4,6 +4,7 @@ import com.taskManager.DTO.Response;
 import com.taskManager.DTO.Status;
 import com.taskManager.controller.TaskController;
 import com.taskManager.storage.entity.Task;
+import com.taskManager.utility.TaskAppUtility;
 import lombok.SneakyThrows;
 
 import javax.swing.*;
@@ -26,9 +27,7 @@ public class BottomPanel extends JPanel implements ActionListener {
 
     public BottomPanel showMainView (MainPanel centralPanel) {
 
-        this.removeAll();
-        this.revalidate();
-        this.repaint();
+        TaskAppUtility.reloadPanel(this);
 
         JLabel label = new JLabel("Enter new task");
         tf = new JTextField(10);
@@ -57,9 +56,7 @@ public class BottomPanel extends JPanel implements ActionListener {
 
     public void showTaskView(Task task) {
 
-        this.removeAll();
-        this.revalidate();
-        this.repaint();
+        TaskAppUtility.reloadPanel(this);
 
         JButton delete = new JButton("Delete task");
         delete.addActionListener(e -> {
@@ -94,9 +91,7 @@ public class BottomPanel extends JPanel implements ActionListener {
 
     public void showEditView(Task task) {
 
-        this.removeAll();
-        this.revalidate();
-        this.repaint();
+        TaskAppUtility.reloadPanel(this);
 
         JButton back = new JButton("Return to task");
         back.addActionListener(e -> {
