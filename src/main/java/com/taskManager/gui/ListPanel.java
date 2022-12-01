@@ -31,7 +31,7 @@ public class ListPanel extends JPanel implements ActionListener {
     public ListPanel(Task task,MainPanel main, TopPanel topPanel,BottomPanel bottomPanel){
         this.main  = main;
         this.topPanel = topPanel;
-        this.setPreferredSize(new Dimension(690,30));
+        //this.setPreferredSize(new Dimension(690,30));
 
         id = new JLabel();
         id.setText(String.valueOf(task.getId()));

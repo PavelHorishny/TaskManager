@@ -33,7 +33,7 @@ public class MainPanel extends JPanel {
         this.removeAll();
         this.revalidate();
         this.repaint();
-        this.add(new TaskPanel(task, this, topPanel));
+        this.add(new TaskPanel(task, this, topPanel,bottomPanel));
     }
     //TODO resolve issue saving data on changing panels or on closing
     public void loadEditPage(Task task){
