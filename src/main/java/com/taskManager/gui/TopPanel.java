@@ -1,25 +1,21 @@
 package com.taskManager.gui;
 
 import com.taskManager.storage.entity.Task;
+import com.taskManager.utility.TaskAppUtility;
 
 import javax.swing.*;
 import java.awt.*;
-
 
 public class TopPanel extends JPanel {
 
     JLabel label;
     GridBagConstraints gbc;
 
-
     public TopPanel() {
-
     }
 
     public TopPanel load() {
-        this.removeAll();
-        this.revalidate();
-        this.repaint();
+        TaskAppUtility.reloadPanel(this);
 
         this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         this.setLayout(new GridBagLayout());
@@ -82,14 +78,13 @@ public class TopPanel extends JPanel {
         gbc.weightx = 1;
         gbc.anchor = GridBagConstraints.LAST_LINE_END;
         this.add(label, gbc);
+
         return this;
     }
 
     public void loadEdit(Task task) {
-        //TODO make separate method for reloading
-        this.removeAll();
-        this.revalidate();
-        this.repaint();
+
+        TaskAppUtility.reloadPanel(this);
 
         JLabel label = new JLabel(task.getName());
         gbc = new GridBagConstraints();

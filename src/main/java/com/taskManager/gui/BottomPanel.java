@@ -49,7 +49,7 @@ public class BottomPanel extends JPanel implements ActionListener {
         //TODO check the empty string
         if (e.getSource() == send) {
             taskController.post(tf.getText());
-            centralPanel.loadList();
+            centralPanel.showListView();
             tf.setText("");
         }
     }
@@ -64,7 +64,7 @@ public class BottomPanel extends JPanel implements ActionListener {
             Response r = taskController.delete(task.getId());
             //TODO if delete returns ok then return list panel
             if (r.getStatus().equals(Status.OK)) {
-                centralPanel.loadList();
+                centralPanel.showListView();
                 this.showMainView(centralPanel);
                 topPanel.load();
             }
@@ -72,14 +72,14 @@ public class BottomPanel extends JPanel implements ActionListener {
 
         JButton edit = new JButton("Edit task");
         edit.addActionListener(e -> {
-            centralPanel.loadEditPage(task);
+            centralPanel.showEditView(task);
             this.showEditView(task);
         });
 
         JButton back = new JButton("Return to list");
         back.addActionListener(e -> {
             topPanel.load();
-            centralPanel.loadList();
+            centralPanel.showListView();
             this.showMainView(centralPanel);
         });
 
@@ -96,7 +96,7 @@ public class BottomPanel extends JPanel implements ActionListener {
         JButton back = new JButton("Return to task");
         back.addActionListener(e -> {
             topPanel.loadEdit(task);
-            centralPanel.loadTask(task);
+            centralPanel.showTaskView(task);
             this.showTaskView(task);
         });
 
