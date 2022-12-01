@@ -13,6 +13,7 @@ import java.util.List;
 public class TaskService extends SessionUtil implements TaskDAO {
     @Override
     public void add(Task task) throws SQLException {
+
         openTransactionSession();
         Session session = getSession();
         session.save(task);
@@ -21,19 +22,21 @@ public class TaskService extends SessionUtil implements TaskDAO {
 
     @Override
     public List<Task> getAll() throws SQLException {
+
         openTransactionSession();
         String sql = "SELECT * FROM TASK";
         Session session = getSession();
         Query query = session.createNativeQuery(sql).addEntity(Task.class);
-        List <Task> tasks = query.list();
+        List<Task> tasks = query.list();
         closeTransactionSession();
         return tasks;
     }
 
     @Override
     public Task getByID(int id) throws SQLException {
+
         openTransactionSession();
-        String sql  =  "SELECT * FROM TASK WHERE ID = :id";
+        String sql = "SELECT * FROM TASK WHERE ID = :id";
         Session session = getSession();
         Query query = session.createNativeQuery(sql).addEntity(Task.class);
         query.setParameter("id", id);
@@ -62,26 +65,26 @@ public class TaskService extends SessionUtil implements TaskDAO {
         session.remove(task);
 
         closeTransactionSession();
-
-
     }
 
     @Override
     public boolean ifExistByName(String name) {
 
         String sql = "SELECT * FROM TASK WHERE NAME = :name";
-        try{
+        try {
             openTransactionSession();
             Session session = getSession();
+
             Query query = session.createNativeQuery(sql).addEntity(Task.class);
             query.setParameter("name", name);
             Task task = (Task) query.getSingleResult();
+
             closeTransactionSession();
+
             return true;
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
             return false;
         }
 
     }
-
 }

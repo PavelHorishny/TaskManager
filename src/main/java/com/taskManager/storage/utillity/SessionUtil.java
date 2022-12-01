@@ -6,24 +6,30 @@ import org.hibernate.Transaction;
 public class SessionUtil {
     private Session session;
     private Transaction transaction;
-    public Session getSession(){
+
+    public Session getSession() {
         return session;
     }
-    public Transaction getTransaction(){
+
+    public Transaction getTransaction() {
         return transaction;
     }
-    public Session openSession(){
+
+    public Session openSession() {
         return HibernateUtil.getSessionFactory().openSession();
     }
-    public Session openTransactionSession(){
+
+    public Session openTransactionSession() {
         session = openSession();
         transaction = session.beginTransaction();
         return session;
     }
-    public void closeSession(){
+
+    public void closeSession() {
         session.close();
     }
-    public void closeTransactionSession(){
+
+    public void closeTransactionSession() {
         transaction.commit();
         closeSession();
     }
