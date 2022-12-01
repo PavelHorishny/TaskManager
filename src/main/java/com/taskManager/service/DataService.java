@@ -1,10 +1,10 @@
 package com.taskManager.service;
 
-import com.taskManager.exception.BadRequestException;
-import com.taskManager.exception.AlreadyExistException;
 import com.taskManager.DTO.Request;
 import com.taskManager.DTO.Response;
 import com.taskManager.DTO.Status;
+import com.taskManager.exception.AlreadyExistException;
+import com.taskManager.exception.BadRequestException;
 import com.taskManager.storage.entity.Task;
 import com.taskManager.storage.service.TaskService;
 
@@ -34,7 +34,7 @@ public class DataService {
                 return resolveDelete(request.getId());
             default:
                 System.out.println("bad request");
-                return new Response(Status.BAD,new BadRequestException("Bad request"),null);
+                return new Response(Status.BAD, new BadRequestException("Bad request"), null);
         }
     }
 
@@ -50,7 +50,6 @@ public class DataService {
 
     }
 
-    //TODO test resolve put method
     //TODO make warnings in case of non critical troubles
     private Response resolvePut(int id, String name, String finish, int time) {
         try {
@@ -58,7 +57,7 @@ public class DataService {
             if (name != null) {
                 task.setName(name);
             }
-            if (finish != null && task.getFinishedDateTime()==null) {
+            if (finish != null && task.getFinishedDateTime() == null) {
                 task.setFinishedDateTime(new Date());
             }
             if (time > task.getSTime()) {
