@@ -16,7 +16,7 @@ public class BottomPanel extends JPanel implements ActionListener {
     JTextField tf;
     JButton send;
     TaskController taskController = new TaskController();
-    MainPanel centralPanel;
+    MainPanel mainPanel;
     TopPanel topPanel;
 
     public BottomPanel(TopPanel topPanel) {
@@ -25,7 +25,7 @@ public class BottomPanel extends JPanel implements ActionListener {
 
     }
 
-    public BottomPanel showMainView (MainPanel centralPanel) {
+    public BottomPanel showMainView (MainPanel mainPanel) {
 
         TaskAppUtility.reloadPanel(this);
 
@@ -37,7 +37,7 @@ public class BottomPanel extends JPanel implements ActionListener {
         this.add(label);
         this.add(tf);
         this.add(send);
-        this.centralPanel = centralPanel;
+        this.mainPanel = mainPanel;
 
         return this;
 
@@ -48,9 +48,17 @@ public class BottomPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //TODO check the empty string
         if (e.getSource() == send) {
-            taskController.post(tf.getText());
-            centralPanel.showListView();
-            tf.setText("");
+            if(tf.getText().equals("")){
+                JOptionPane.showMessageDialog(null,"Enter name of your task first","Warning",JOptionPane.WARNING_MESSAGE);
+            }else{
+                Response response = taskController.post(tf.getText());
+                if(response.getStatus().equals(Status.OK)){
+                    mainPanel.showListView();
+                    tf.setText("");
+                }else{
+                    JOptionPane.showMessageDialog(null,response.getException().getMessage(),"Some error occurred",JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
     }
 
@@ -60,27 +68,31 @@ public class BottomPanel extends JPanel implements ActionListener {
 
         JButton delete = new JButton("Delete task");
         delete.addActionListener(e -> {
-            //TODO add confirmation before deleting
-            Response r = taskController.delete(task.getId());
-            //TODO if delete returns ok then return list panel
-            if (r.getStatus().equals(Status.OK)) {
-                centralPanel.showListView();
-                this.showMainView(centralPanel);
-                topPanel.load();
+            int answer = JOptionPane.showConfirmDialog(null, "Are you sure?", "Delete operation", JOptionPane.YES_NO_CANCEL_OPTION);
+
+            if(answer==0){
+                Response response = taskController.delete(task.getId());
+                if(response.getStatus().equals(Status.OK)){
+                    mainPanel.showListView();
+                    this.showMainView(mainPanel);
+                    topPanel.load();
+                }else{
+                    JOptionPane.showMessageDialog(null,response.getException().getMessage(),"Some error occurred",JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
         JButton edit = new JButton("Edit task");
         edit.addActionListener(e -> {
-            centralPanel.showEditView(task);
+            mainPanel.showEditView(task);
             this.showEditView(task);
         });
 
         JButton back = new JButton("Return to list");
         back.addActionListener(e -> {
             topPanel.load();
-            centralPanel.showListView();
-            this.showMainView(centralPanel);
+            mainPanel.showListView();
+            this.showMainView(mainPanel);
         });
 
         this.add(delete);
@@ -96,7 +108,7 @@ public class BottomPanel extends JPanel implements ActionListener {
         JButton back = new JButton("Return to task");
         back.addActionListener(e -> {
             topPanel.loadEdit(task);
-            centralPanel.showTaskView(task);
+            mainPanel.showTaskView(task);
             this.showTaskView(task);
         });
 
