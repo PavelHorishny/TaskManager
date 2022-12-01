@@ -1,5 +1,7 @@
 package com.taskManager.gui;
 
+import com.taskManager.DTO.Response;
+import com.taskManager.DTO.Status;
 import com.taskManager.controller.TaskController;
 import com.taskManager.storage.entity.Task;
 import com.taskManager.utility.TaskAppUtility;
@@ -9,7 +11,7 @@ import java.util.List;
 
 public class MainPanel extends JPanel {
     List<Task> tasks;
-    TaskController tc = new TaskController();
+    TaskController taskController = new TaskController();
     TopPanel topPanel;
     BottomPanel bottomPanel;
 
@@ -22,10 +24,18 @@ public class MainPanel extends JPanel {
 
     public void showListView() {
         TaskAppUtility.reloadPanel(this);
-        tasks = tc.get(0).getTasks();
-        //TODO resolve response
-        for (Task task : tasks) {
-            this.add(new ListPanel(task, this, topPanel, bottomPanel));
+        Response response = taskController.get(0);
+        if(response.getStatus().equals(Status.OK)){
+            tasks = response.getTasks();
+            if(tasks.size()<1){
+                this.add(new JLabel("Add your first task"));
+            }else {
+                for (Task task : tasks) {
+                    this.add(new ListPanel(task, this, topPanel, bottomPanel));
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,response.getException().getMessage(),"Some error occurred",JOptionPane.ERROR_MESSAGE);
         }
     }
 
