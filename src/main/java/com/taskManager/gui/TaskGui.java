@@ -22,9 +22,7 @@ public class TaskGui {
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         container.add(scroll,BorderLayout.CENTER);
 
-/*        BottomPanel bottomPanel = new BottomPanel();
-        bottomPanel.setBackground(Color.GRAY);*/
-        container.add(bottomPanel.load(centralPanel),BorderLayout.SOUTH);
+        container.add(bottomPanel.showMainView(centralPanel),BorderLayout.SOUTH);
         container.add(scroll,BorderLayout.CENTER);
 
 
@@ -32,7 +30,7 @@ public class TaskGui {
     public void createAndShow(){
 
         JFrame frame = new JFrame("Task Manager");
-        frame.setPreferredSize(new Dimension(710,450));
+        frame.setMinimumSize(new Dimension(710,450));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
         frame.setLocationRelativeTo(null);

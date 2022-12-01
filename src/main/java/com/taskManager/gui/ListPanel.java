@@ -21,22 +21,30 @@ public class ListPanel extends JPanel implements ActionListener {
     JLabel endDate;
     JLabel time;
     JButton timer;
+    GridBagConstraints gbc;
     TaskController taskController = new TaskController();
     Timer t;
     int k = 0;
     SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
     MainPanel main;
     TopPanel topPanel;
+    //TODO show numbers but not id
 
     public ListPanel(Task task,MainPanel main, TopPanel topPanel,BottomPanel bottomPanel){
         this.main  = main;
         this.topPanel = topPanel;
-        //this.setPreferredSize(new Dimension(690,30));
+        this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        this.setLayout(new GridBagLayout());
 
         id = new JLabel();
         id.setText(String.valueOf(task.getId()));
         id.setPreferredSize(new Dimension(30,30));
-        this.add(id);
+        gbc = new GridBagConstraints();
+        gbc.gridx=0;
+        gbc.gridy=0;
+        gbc.weightx=1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        this.add(id,gbc);
 
         name = new JLabel();
         name.setText(task.getName());
@@ -47,15 +55,25 @@ public class ListPanel extends JPanel implements ActionListener {
                 System.out.println("pressed"+name.getText());
                 topPanel.loadEdit(task);
                 main.loadTask(task);
-                bottomPanel.loadTaskView(task);
+                bottomPanel.showTaskView(task);
             }
         });
-        this.add(name);
+        gbc = new GridBagConstraints();
+        gbc.gridx=1;
+        gbc.gridy=0;
+        gbc.weightx=1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        this.add(name,gbc);
 
         startDate = new JLabel();
         startDate.setText(df.format(task.getCreatedDateTime()));
         startDate.setPreferredSize(new Dimension(90,30));
-        this.add(startDate);
+        gbc = new GridBagConstraints();
+        gbc.gridx=2;
+        gbc.gridy=0;
+        gbc.weightx=1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        this.add(startDate,gbc);
 
         endDate = new JLabel();
         if(task.getFinishedDateTime()!=null){
@@ -63,20 +81,36 @@ public class ListPanel extends JPanel implements ActionListener {
         }else{
             endDate.setText("not finished");
         }
+        //TODO use separate method
         endDate.setPreferredSize(new Dimension(90,30));
-        this.add(endDate);
+        gbc = new GridBagConstraints();
+        gbc.gridx=3;
+        gbc.gridy=0;
+        gbc.weightx=1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        this.add(endDate,gbc);
 
         time = new JLabel();
         time.setText(TestingTimer.convertTime(task.getSTime()));
         time.setPreferredSize(new Dimension(70,30));
-        this.add(time);
+        gbc = new GridBagConstraints();
+        gbc.gridx=4;
+        gbc.gridy=0;
+        gbc.weightx=1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        this.add(time,gbc);
         k=task.getSTime();
 
         timer = new JButton();
         timer.setText("Start");
         timer.addActionListener(this);
         timer.setPreferredSize(new Dimension(70,20));
-        this.add(timer, BorderLayout.LINE_END);
+        gbc = new GridBagConstraints();
+        gbc.gridx=5;
+        gbc.gridy=0;
+        gbc.weightx=1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        this.add(timer, gbc);
         if(task.getFinishedDateTime()!=null){
             timer.setEnabled(false);
         }

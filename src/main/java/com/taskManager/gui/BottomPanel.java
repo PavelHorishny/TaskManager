@@ -14,18 +14,22 @@ public class BottomPanel extends JPanel implements ActionListener {
 
     JTextField tf;
     JButton send;
-    TaskController taskController =new TaskController();
+    TaskController taskController = new TaskController();
     MainPanel centralPanel;
     TopPanel topPanel;
 
-    public BottomPanel (TopPanel topPanel){
+    public BottomPanel(TopPanel topPanel) {
+
         this.topPanel = topPanel;
 
     }
-    public BottomPanel load( MainPanel centralPanel){
+
+    public BottomPanel showMainView (MainPanel centralPanel) {
+
         this.removeAll();
         this.revalidate();
         this.repaint();
+
         JLabel label = new JLabel("Enter new task");
         tf = new JTextField(10);
         send = new JButton("Save task");
@@ -35,21 +39,24 @@ public class BottomPanel extends JPanel implements ActionListener {
         this.add(tf);
         this.add(send);
         this.centralPanel = centralPanel;
-        return  this;
+
+        return this;
+
     }
 
     @SneakyThrows
     @Override
     public void actionPerformed(ActionEvent e) {
         //TODO check the empty string
-        if(e.getSource()==send){
-
+        if (e.getSource() == send) {
             taskController.post(tf.getText());
             centralPanel.loadList();
             tf.setText("");
         }
     }
-    public void loadTaskView(Task task){
+
+    public void showTaskView(Task task) {
+
         this.removeAll();
         this.revalidate();
         this.repaint();
@@ -59,39 +66,43 @@ public class BottomPanel extends JPanel implements ActionListener {
             //TODO add confirmation before deleting
             Response r = taskController.delete(task.getId());
             //TODO if delete returns ok then return list panel
-            if(r.getStatus().equals(Status.OK)) {
+            if (r.getStatus().equals(Status.OK)) {
                 centralPanel.loadList();
-                this.load(centralPanel);
+                this.showMainView(centralPanel);
                 topPanel.load();
-                }
-            });
+            }
+        });
 
         JButton edit = new JButton("Edit task");
         edit.addActionListener(e -> {
-           centralPanel.loadEditPage(task);
-           this.loadEditView(task);
+            centralPanel.loadEditPage(task);
+            this.showEditView(task);
         });
 
         JButton back = new JButton("Return to list");
-        back.addActionListener(e->{
+        back.addActionListener(e -> {
             topPanel.load();
             centralPanel.loadList();
-            this.load(centralPanel);
+            this.showMainView(centralPanel);
         });
+
         this.add(delete);
         this.add(edit);
         this.add(back);
+
     }
 
-    public void loadEditView(Task task){
+    public void showEditView(Task task) {
+
         this.removeAll();
         this.revalidate();
         this.repaint();
+
         JButton back = new JButton("Return to task");
-        back.addActionListener(e->{
+        back.addActionListener(e -> {
             topPanel.loadEdit(task);
             centralPanel.loadTask(task);
-            this.loadTaskView(task);
+            this.showTaskView(task);
         });
 
         this.add(back);

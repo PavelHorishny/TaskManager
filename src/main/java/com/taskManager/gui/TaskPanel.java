@@ -7,7 +7,6 @@ import test.TestingTimer;
 import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 public class TaskPanel extends JPanel {
@@ -147,7 +146,7 @@ public class TaskPanel extends JPanel {
             taskController.put(task.getId(),null,"finished", task.getSTime());
             main.loadList();
             topPanel.load();
-            bottomPanel.load(main);
+            bottomPanel.showMainView(main);
             //TODO resolve response
         });
         gbc.gridx = 1;
